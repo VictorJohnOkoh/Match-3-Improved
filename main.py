@@ -3,6 +3,8 @@ import pygame.font as font
 import pygame.mixer as mixer
 import sys
 from button import Button
+import Levels
+import settings
 
 pygame.init()
 font.init()
@@ -13,17 +15,19 @@ WIDTH = 1000
 HEIGHT = 1000
 
 large_font = pygame.font.SysFont("Arial", 50, bold=True)
-main_font = font.SysFont("bahnschrift,franklin gothic medium,arial", 15, bold=True)
-F_A_TITLE = font.SysFont("bahnschrift,franklin gothic medium,arial", 46, bold=True)
+main_font = font.Font("assets/fonts/franklin-gothic/FranklinGothic.ttf", 30)
+title_font = font.Font("assets/fonts/franklin-gothic/Franklin Gothic Bold.ttf", 72)
 screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
 pygame.display.set_caption("Main Menu")
 # icon = pygame.image.load("icon.png")
 # pygame.display.set_icon(icon)
+
 clock = pygame.time.Clock()
 fps = 60
 
 # Buttons
-settings = Button((200, 200), body='assets/buttons/settings.png', body2='assets/buttons/settings_hover.png', body3='assets/buttons/settings_pressed.png')
+settings_button = Button(body='assets/buttons/settings.png', body2='assets/buttons/settings_hover.png', body3='assets/buttons/settings_pressed.png', function=settings.settings)
+level1 = Button(text='Level 1', font=main_font, function=Levels.level1)
 
 def menu():
     run = True
@@ -34,19 +38,25 @@ def menu():
         clock.tick(fps)
 
         screen.fill((123,0,0))
-        text = F_A_TITLE.render("Main Menu", True, (255,255,255))
-        text_rect = text.get_rect(center=(WIDTH/2,150))
+        text = title_font.render("Main Menu", True, (255, 255, 255))
+        text_rect = text.get_rect(center=(full_width/2,100))
         screen.blit(text, text_rect)
-
-
-        settings.draw(mouse_pos, screen)
-
-
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+            level1.clicked(event)
+            settings_button.clicked(event)
+
+        level1.draw(mouse_pos, screen, (full_width // 2, full_height // 3))
+        settings_button.draw(mouse_pos, screen, (75, full_height - 50))
+
         pygame.display.update()
+
+        # checked after the update so the pressed face reaches the screen first
+        if level1.finished():
+            Levels.level1(screen, clock)
+            pygame.display.set_caption("Main Menu")
     pygame.quit()
     sys.exit()
 

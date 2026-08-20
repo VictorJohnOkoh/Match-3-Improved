@@ -6,7 +6,7 @@ from button import Button
 back_button = Button(body ='assets/buttons/back.png', body2 ='assets/buttons/back_hover.png', body3 ='assets/buttons/back_pressed.png')
 
 
-def settings_srcn(screen : pygame.Surface):
+def settings_screen(screen : pygame.Surface):
     run = True
     while run:
 

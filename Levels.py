@@ -12,7 +12,6 @@ def level1(screen, clock):
     run = True
     while run:
         clock.tick(60)
-        pygame.display.set_caption("Level 1")
 
         mouse_pos = pygame.mouse.get_pos()
         screen.fill((0,0,0))

@@ -17,7 +17,7 @@ HEIGHT = 1000
 large_font = pygame.font.SysFont("Arial", 50, bold=True)
 main_font = font.Font("assets/fonts/franklin-gothic/FranklinGothic.ttf", 30)
 title_font = font.Font("assets/fonts/franklin-gothic/Franklin Gothic Bold.ttf", 72)
-screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Main Menu")
 # icon = pygame.image.load("icon.png")
 # pygame.display.set_icon(icon)
